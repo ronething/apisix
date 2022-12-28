@@ -243,6 +243,8 @@ function _M.set_by_route(route, api_ctx)
     -- core.log.info("up_conf: ", core.json.delay_encode(up_conf, true))
 
     if up_conf.service_name then
+        core.log.info("upstream service_name is ", up_conf.service_name)
+        core.log.info("upstream discovery_type is ", up_conf.discovery_type)
         if not discovery then
             return 503, "discovery is uninitialized"
         end
@@ -257,6 +259,7 @@ function _M.set_by_route(route, api_ctx)
         end
 
         local new_nodes, err = dis.nodes(up_conf.service_name, up_conf.discovery_args)
+        core.log.info("new_nodes is ", core.json.encode(new_nodes,false))
         if not new_nodes then
             return HTTP_CODE_UPSTREAM_UNAVAILABLE, "no valid upstream node: " .. (err or "nil")
         end

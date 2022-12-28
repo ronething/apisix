@@ -236,6 +236,7 @@ local function get_nacos_services()
     -- here we use lazy load to work around circle dependency
     local get_upstreams = require('apisix.upstream').upstreams
     local get_routes = require('apisix.router').http_routes
+    local get_stream_routes = require('apisix.router').stream_routes
     local get_services = require('apisix.http.service').services
     local values = get_upstreams()
     iter_and_add_service(services, values)
@@ -243,6 +244,9 @@ local function get_nacos_services()
     iter_and_add_service(services, values)
     values = get_services()
     iter_and_add_service(services, values)
+    values = get_stream_routes()
+    iter_and_add_service(services, values)
+    core.log.info("nacos services is ", core.json.encode(services, false))
     return services
 end
 

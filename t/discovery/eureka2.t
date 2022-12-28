@@ -48,17 +48,18 @@ __DATA__
 === TEST 1: get APISIX-EUREKA info from EUREKA
 --- yaml_config eval: $::yaml_config
 --- apisix_yaml
-routes:
+stream_routes:
   -
-    uri: /eureka/*
+    id: 1
+    server_port: 1985
     upstream:
       service_name: APISIX-EUREKA
       discovery_type: eureka
       type: roundrobin
 
 #END
---- request
-GET /eureka/apps/APISIX-EUREKA
+--- stream_request eval
+"\x47\x45\x54\x20\x2f\x65\x75\x72\x65\x6b\x61\x2f\x61\x70\x70\x73\x2f\x41\x50\x49\x53\x49\x58\x2d\x45\x55\x52\x45\x4b\x41\x20\x48\x54\x54\x50\x2f\x31\x2e\x31\x0d\x0a\x48\x6f\x73\x74\x3a\x20\x31\x32\x37\x2e\x30\x2e\x30\x2e\x31\x3a\x31\x39\x38\x35\x0d\x0a\x0d\x0a"
 --- response_body_like
 .*<name>APISIX-EUREKA</name>.*
 --- error_log
@@ -68,51 +69,4 @@ fetch_interval:10.
 eureka uri:http://127.0.0.1:8761/eureka/.
 connect_timeout:1500, send_timeout:1500, read_timeout:1500.
 
-
-
-=== TEST 2: error service_name name
---- yaml_config eval: $::yaml_config
---- apisix_yaml
-routes:
-  -
-    uri: /eureka/*
-    upstream:
-      service_name: APISIX-EUREKA-DEMO
-      discovery_type: eureka
-      type: roundrobin
-
-#END
---- request
-GET /eureka/apps/APISIX-EUREKA
---- error_code: 503
---- error_log eval
-qr/.* no valid upstream node.*/
-
-
-
-=== TEST 3: with proxy-rewrite
---- yaml_config eval: $::yaml_config
---- apisix_yaml
-routes:
-  -
-    uri: /eureka-test/*
-    plugins:
-      proxy-rewrite:
-        regex_uri: ["^/eureka-test/(.*)", "/${1}"]
-    upstream:
-      service_name: APISIX-EUREKA
-      discovery_type: eureka
-      type: roundrobin
-
-#END
---- request
-GET /eureka-test/eureka/apps/APISIX-EUREKA
---- response_body_like
-.*<name>APISIX-EUREKA</name>.*
---- error_log
-use config_provider: yaml
-default_weight:80.
-fetch_interval:10.
-eureka uri:http://127.0.0.1:8761/eureka/.
-connect_timeout:1500, send_timeout:1500, read_timeout:1500.
 
