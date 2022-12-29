@@ -73,7 +73,7 @@ nginx_config:                     # config for render the template to generate n
                                   # the "user" directive makes sense only if the master process runs with super-user privileges.
                                   # if you're not root user,the default is current user.
   error_log: logs/error.log
-  error_log_level:  info          # warn,error
+  error_log_level:  warn          # warn,error
   worker_processes: 1
 
 discovery:
@@ -87,13 +87,13 @@ discovery:
       connect: 2000              # default 2000ms
       send: 2000                 # default 2000ms
       read: 5000                 # default 5000ms
-  # nacos:
-  #   host:
-  #     - "http://127.0.0.1:8848" # 使用时请指向正确的Nacos服务的地址
-  #   prefix: "/nacos/v1/"
-  #   fetch_interval: 10    # default 30 sec
-  #   weight: 100           # 默认服务实例的权重
-  #   timeout:
-  #     connect: 2000 # 与Nacos服务通信时的连接超时设置
-  #     send: 2000 # 与Nacos服务通信时的发送超时设置
-  #     read: 5000 # 与Nacos服务通信时的读取超时设置
+  nacos:
+    host:
+      - "http://127.0.0.1:8848" # 使用时请指向正确的Nacos服务的地址
+    prefix: "/nacos/v1/"
+    fetch_interval: 10    # default 30 sec
+    weight: 100           # 默认服务实例的权重
+    timeout:
+      connect: 2000 # 与Nacos服务通信时的连接超时设置
+      send: 2000 # 与Nacos服务通信时的发送超时设置
+      read: 5000 # 与Nacos服务通信时的读取超时设置

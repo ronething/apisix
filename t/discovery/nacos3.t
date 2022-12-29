@@ -88,10 +88,9 @@ stream_routes:
       type: roundrobin
 #END
 --- stream_enable
---- stream_request
-"\50\49\4e\47"
---- stream_response
-PONG
+--- stream_request eval
+"\x50\x49\x4e\x47\x0d\x0a"
+--- stream_response eval
+"\x2b\x50\x4f\x4e\x47\x0d\x0a"
 --- no_error_log
 [error]
---- ONLY
