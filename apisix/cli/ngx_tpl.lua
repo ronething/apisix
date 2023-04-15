@@ -288,6 +288,10 @@ http {
     lua_shared_dict plugin-limit-req {* http.lua_shared_dict["plugin-limit-req"] *};
     {% end %}
 
+    {% if enabled_plugins["quota"] then %}
+    lua_shared_dict plugin-quota {* http.lua_shared_dict["plugin-quota"] *};
+    {% end %}
+
     {% if enabled_plugins["limit-count"] then %}
     lua_shared_dict plugin-limit-count {* http.lua_shared_dict["plugin-limit-count"] *};
     lua_shared_dict plugin-limit-count-redis-cluster-slot-lock {* http.lua_shared_dict["plugin-limit-count-redis-cluster-slot-lock"] *};

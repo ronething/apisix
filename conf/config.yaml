@@ -61,3 +61,13 @@ deployment:
       - name: admin
         key: edd1c9f034335f136f87ad84b625c8f1  # using fixed API token has security risk, please update it when you deploy to production environment
         role: admin
+
+nginx_config:                     # config for render the template to generate nginx.conf
+  #user: root                     # specifies the execution user of the worker process.
+                                  # the "user" directive makes sense only if the master process runs with super-user privileges.
+                                  # if you're not root user,the default is current user.
+  error_log: logs/error.log
+  error_log_level: info          # warn,error
+
+plugins:                          # plugin list (sorted by priority)
+  - quota                        # priority: 1002
