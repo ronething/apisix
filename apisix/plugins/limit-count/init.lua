@@ -95,6 +95,7 @@ local schema = {
     properties = {
         count = {type = "integer", exclusiveMinimum = 0},
         time_window = {type = "integer",  exclusiveMinimum = 0},
+        minute = {type = "integer",  exclusiveMinimum = 0},
         group = {type = "string"},
         key = {type = "string", default = "remote_addr"},
         key_type = {type = "string",
@@ -115,7 +116,11 @@ local schema = {
         allow_degradation = {type = "boolean", default = false},
         show_limit_quota_header = {type = "boolean", default = true}
     },
-    required = {"count", "time_window"},
+    required = {"count"},
+    anyOf = {
+        {required = { "time_window" }},
+        {required = { "minute" }},
+    },
     ["if"] = {
         properties = {
             policy = {
@@ -194,19 +199,24 @@ end
 local function create_limit_obj(conf)
     core.log.info("create new limit-count plugin instance")
 
+    -- if not minute, then time_window is conf.time_window
+    local time_window = conf.time_window
+    if conf.minute then
+        time_window = conf.minute * 60
+    end
     if not conf.policy or conf.policy == "local" then
         return limit_local_new("plugin-" .. plugin_name, conf.count,
-                               conf.time_window)
+                               time_window)
     end
 
     if conf.policy == "redis" then
         return limit_redis_new("plugin-" .. plugin_name,
-                               conf.count, conf.time_window, conf)
+                               conf.count, time_window, conf)
     end
 
     if conf.policy == "redis-cluster" then
         return limit_redis_cluster_new("plugin-" .. plugin_name, conf.count,
-                                       conf.time_window, conf)
+                                       time_window, conf)
     end
 
     return nil
