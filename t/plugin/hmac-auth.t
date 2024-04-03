@@ -418,6 +418,7 @@ passed
 GET /hello
 --- more_headers
 X-HMAC-SIGNATURE: asdf
+X-HMAC-SIGNATURE: asdf
 X-HMAC-ALGORITHM: hmac-sha256
 Date: Thu, 24 Sep 2020 06:39:52 GMT
 X-HMAC-ACCESS-KEY: my-access-key3

@@ -376,6 +376,7 @@ local function get_params(ctx)
 
     local app_key = core.request.header(ctx, access_key)
     local signature = core.request.header(ctx, signature_key)
+    signature = type(signature) == "table" and signature[1] or signature
     local algorithm = core.request.header(ctx, algorithm_key)
     local date = core.request.header(ctx, date_key)
     local signed_headers = core.request.header(ctx, signed_headers_key)
