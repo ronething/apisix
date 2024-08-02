@@ -36,12 +36,6 @@ __DATA__
 
 === TEST 1: sanity
 # the sensitive data is encrypted in etcd, and it is normal to read it from the admin API
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {
@@ -126,12 +120,6 @@ passed
 
 
 === TEST 3: verify
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- request
 GET /hello
 --- more_headers
@@ -142,12 +130,6 @@ hello world
 
 
 === TEST 4: multiple auth plugins work well
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {
@@ -227,12 +209,6 @@ passed
 
 
 === TEST 6: verify
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- request
 GET /hello
 --- more_headers
@@ -288,12 +264,6 @@ bar
 
 
 === TEST 8: etcd store unencrypted password, enable data_encryption, decryption fails, use original password
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {
@@ -341,12 +311,6 @@ failed to decrypt the conf of plugin [basic-auth] key [password], err: decrypt s
 === TEST 9: etcd stores both encrypted and unencrypted data
 # enable data_encryption, decryption of encrypted data succeeds
 # decryption of unencrypted data fails, make sure it works well
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {
@@ -399,12 +363,6 @@ failed to decrypt the conf of plugin [basic-auth] key [password], err: decrypt s
 
 
 === TEST 10: verify, use the foo2 consumer
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- request
 GET /hello
 --- more_headers
@@ -416,12 +374,6 @@ hello world
 
 
 === TEST 11: keyring rotate, encrypt with edd1c9f0985e76a2
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {
@@ -492,12 +444,6 @@ hello world
 
 
 === TEST 13: search consumer list
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {

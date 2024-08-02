@@ -110,12 +110,6 @@ Location: http://127.0.0.1/test
 
 
 === TEST 3: data encryption for client_secret
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {

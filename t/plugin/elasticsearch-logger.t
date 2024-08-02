@@ -451,12 +451,6 @@ check elasticsearch custom body success
 
 
 === TEST 12: data encryption for auth.password
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {

@@ -261,12 +261,6 @@ passed
 
 
 === TEST 11: data encryption for access_key_secret
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {

@@ -215,12 +215,6 @@ passed
 
 
 === TEST 8: data encryption for clickhouse.password
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {
@@ -275,12 +269,6 @@ bar
 
 
 === TEST 9: verify use the decrypted password to connect to clickhouse
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {

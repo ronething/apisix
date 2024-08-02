@@ -35,12 +35,6 @@ run_tests();
 __DATA__
 
 === TEST 1: data encryption work well with plugins that not the auth plugins
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {
@@ -98,12 +92,6 @@ abc123
 
 
 === TEST 2: verify
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- request
 GET /opentracing
 --- response_body
@@ -118,12 +106,6 @@ clickhouse headers: x-clickhouse-database:default
 
 
 === TEST 3: POST and get list
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {
@@ -186,12 +168,6 @@ abc123
 
 
 === TEST 4: PATCH
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {
@@ -265,12 +241,6 @@ def456
 
 
 === TEST 5: data encryption work well with services
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {
@@ -342,12 +312,6 @@ abc123
 
 
 === TEST 6: verify
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- request
 GET /opentracing
 --- response_body
@@ -362,12 +326,6 @@ clickhouse headers: x-clickhouse-database:default
 
 
 === TEST 7: data encryption work well with plugin_configs
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {
@@ -440,12 +398,6 @@ abc123
 
 
 === TEST 8: verify
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- request
 GET /opentracing
 --- response_body
@@ -460,12 +412,6 @@ clickhouse headers: x-clickhouse-database:default
 
 
 === TEST 9: data encryption work well with global rule
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {
@@ -564,12 +510,6 @@ passed
 
 
 === TEST 10: data encryption work well with consumer groups
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {
@@ -642,12 +582,6 @@ vU/ZHVJw7b0XscDJ1Fhtig==
 
 
 === TEST 11: verify data encryption
---- yaml_config
-apisix:
-    data_encryption:
-        enable_encrypt_fields: true
-        keyring:
-            - edd1c9f0985e76a2
 --- config
     location /t {
         content_by_lua_block {
